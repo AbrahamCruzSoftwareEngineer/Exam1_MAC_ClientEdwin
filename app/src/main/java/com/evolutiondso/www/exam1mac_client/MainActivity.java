@@ -76,17 +76,22 @@ public class MainActivity extends AppCompatActivity {
         EditText pasCode = (EditText) findViewById(R.id.edittextPass);
         String pasw = pasCode.getText().toString();
 
-                if(usrName.equals("test") && pasw.equals("12345")){
+               //Hacemos un ciclo en el cual vamos a ver si esta este usuario
 
-                    Toast.makeText(MainActivity.this, "Welcome: " + usrName, Toast.LENGTH_SHORT).show();
+             for (Student student:lista_students) {
+                 if (student.getName().equals(usrName) && student.getPassword().equals(pasw)){
 
-                    Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
-                    startActivity(intent);
+                     Toast.makeText(MainActivity.this, "Welcome: " + usrName, Toast.LENGTH_SHORT).show();
 
-                }else {
-                    Toast.makeText(MainActivity.this, "Access Denied!", Toast.LENGTH_SHORT).show();
-                }
+                     Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                     startActivity(intent);
 
+
+
+                 } else {
+                     Toast.makeText(MainActivity.this, "Access Denied!", Toast.LENGTH_SHORT).show();
+                 }
+             }
     }
 
 
@@ -111,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
         Response response = con.newCall(request).execute();
         return response.body().string();
     }
+
+
+
+
 
 
 //Aqui es la tarea anterior

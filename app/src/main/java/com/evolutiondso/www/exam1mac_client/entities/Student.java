@@ -13,6 +13,7 @@ public class Student {
 
         String name;
         String age;
+        String password;
         float grade;
 
         public String getName() {
@@ -39,15 +40,23 @@ public class Student {
             this.grade = grade;
         }
 
-        @Override
-        public String toString() {
-            return "Student{" +
-                    "name='" + name + '\'' +
-                    ", age='" + age + '\'' +
-                    ", grade=" + grade +
-                    '}';
-        }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age='" + age + '\'' +
+                ", password='" + password + '\'' +
+                ", grade=" + grade +
+                '}';
+    }
 }
 

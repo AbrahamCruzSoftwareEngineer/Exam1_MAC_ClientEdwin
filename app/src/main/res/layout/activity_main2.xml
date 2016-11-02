@@ -59,7 +59,7 @@
             android:background="#33cccc"
             android:textColor="#FFF"
             android:layout_margin="4dp"
-            android:onClick=""
+            android:onClick="backtomain1"
             android:text="LOG OUT"
             />
 
