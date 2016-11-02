@@ -1,7 +1,9 @@
 package com.evolutiondso.www.exam1mac_client;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,11 +42,15 @@ public class MainActivity extends AppCompatActivity {
     public static final String kName = "kName";
     public static final String kAge = "kAge";
     public static final String kGrade = "kGrade";
-    private static final String chkBox = "chkBox";
+    private static final String chkBox = "chkbox";
     private String name;
     private String age;
     private String grade;
     private boolean checkstate;
+
+    private EditText userName;
+    private EditText pasCode;
+    private CheckBox myCheck;
 
 
 
@@ -69,6 +75,18 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        //Aqui creamos nuestras variables de layout
+        userName = (EditText) findViewById(R.id.editTexttUserName);
+        pasCode = (EditText) findViewById(R.id.edittextPass);
+        myCheck = (CheckBox) findViewById(R.id.chbxLogIn);
+
+
+        //Aqui valido los sharedPreferences
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if(sharedPref.getBoolean(chkBox,false)){
+            myCheck.setChecked(true);
+            userName.setText(sharedPref.getString(kName,"User Shared"));
+        }
         Toast.makeText(this, "OnCreateViewOK", Toast.LENGTH_SHORT).show();
         //meteaLista();
         //getJSON();
@@ -84,12 +102,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void valida_Datos(){
         //Aqui jalamos los valores de los EditText a variables String
-        EditText userName = (EditText) findViewById(R.id.editTexttUserName);
         String usrName = userName.getText().toString();
-        EditText pasCode = (EditText) findViewById(R.id.edittextPass);
         String pasw = pasCode.getText().toString();
-        CheckBox myCheck = (CheckBox) findViewById(R.id.chbxLogIn);
-        this.checkstate = myCheck.isEnabled();
+        myCheck = (CheckBox) findViewById(R.id.chbxLogIn);
+        this.checkstate = myCheck.isChecked();
 
 
 
@@ -103,12 +119,19 @@ public class MainActivity extends AppCompatActivity {
 
                      Toast.makeText(MainActivity.this, "Welcome: " +usrName, Toast.LENGTH_SHORT).show();
 
+
+                     SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                     SharedPreferences.Editor sharededitor = shared.edit();
+                     sharededitor.putBoolean(chkBox,myCheck.isChecked());
+                     sharededitor.putString(kName,student.getName());
+                     sharededitor.commit();
                      //si es cierta la sentencia -> emepzamos intent para la segunda pantalla
                      Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                      //Pasamos valores a la segunda actividad con put extra -> intent.putExtra("parametro", "string");
                      intent.putExtra(kName,this.name);
                      intent.putExtra(kAge,this.age);
                      intent.putExtra(kGrade,this.grade);
+
                      startActivity(intent);
                  } else {
                      Toast.makeText(MainActivity.this, "Access Denied!", Toast.LENGTH_SHORT).show();
@@ -143,15 +166,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putString(kName,this.name);
+//        outState.putBoolean(chkBox,this.checkstate);
+//    }
+//
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+//        this.checkstate = savedInstanceState.getBoolean(chkBox);
+//        myCheck.setChecked(this.checkstate);
+//        userName.setText(savedInstanceState.getString(kName));
+//    }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
     //Aqui es la tarea anterior
 //    private void getJSON() {
 //        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
