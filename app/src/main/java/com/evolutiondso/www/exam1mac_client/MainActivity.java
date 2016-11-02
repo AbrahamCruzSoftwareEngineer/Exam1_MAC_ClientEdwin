@@ -140,8 +140,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     public void meteaLista(){
         Toast.makeText(this, "Inicando actualizadción de lista.", Toast.LENGTH_SHORT).show();
         try {

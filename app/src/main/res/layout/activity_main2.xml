@@ -15,8 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
         <TextView
             android:id="@+id/a_secondact_tv_name"
             android:layout_width="match_parent"
@@ -49,7 +48,6 @@
             android:layout_margin="4dp"
             android:hint="GRADE"
             android:textColorHint="#FFF"
-            android:password="true"
             />
         <Button
             android:id="@+id/btnLogOut"
