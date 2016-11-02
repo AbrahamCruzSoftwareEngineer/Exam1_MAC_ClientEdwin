@@ -2,6 +2,7 @@ package com.evolutiondso.www.exam1mac_client.entities;
 
 import com.google.android.gms.common.api.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +47,6 @@ public class Student {
                     ", grade=" + grade +
                     '}';
         }
-
 
 
 }

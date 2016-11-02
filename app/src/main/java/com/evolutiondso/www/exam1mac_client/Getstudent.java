@@ -14,17 +14,34 @@ import java.util.List;
  */
 
 public class Getstudent {
-    private String myJson = "[\n" +
-            "    {\"name\" : \"Juan\", \"age\": 20, \"grade\": 8.1},\n" +
-            "    {\"name\" : \"Miguel\", \"age\": 23, \"grade\": 8.3},\n" +
-            "    {\"name\" : \"Roberto\", \"age\": 39, \"grade\": 9.3},\n" +
-            "    {\"name\" : \"Luis\", \"age\": 19, \"grade\": 6.9},\n" +
-            "    {\"name\" : \"Gaudencio\", \"age\": 25, \"grade\": 4.3}\n" +
-            "]";
-
-    public ArrayList<Student> parseMagic(){
+        public ArrayList<Student> parseMagic(String myJson) {
         Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<Student>>(){}.getType();
-        return gson.fromJson(myJson, listType);
+        return gson.fromJson(myJson,listType);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    //    private String myJson = "[\n" +
+//            "    {\"name\" : \"Juan\", \"age\": 20, \"grade\": 8.1},\n" +
+//            "    {\"name\" : \"Miguel\", \"age\": 23, \"grade\": 8.3},\n" +
+//            "    {\"name\" : \"Roberto\", \"age\": 39, \"grade\": 9.3},\n" +
+//            "    {\"name\" : \"Luis\", \"age\": 19, \"grade\": 6.9},\n" +
+//            "    {\"name\" : \"Gaudencio\", \"age\": 25, \"grade\": 4.3}\n" +
+//            "]";
+
+//    public ArrayList<Student> parseMagic(){
+//        Gson gson = new GsonBuilder().create();
+//        Type listType = new TypeToken<List<Student>>(){}.getType();
+//        return gson.fromJson(myJson, listType);
+//    }
 }

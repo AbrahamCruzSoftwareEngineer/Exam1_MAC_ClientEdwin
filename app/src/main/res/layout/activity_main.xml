@@ -50,11 +50,11 @@
             android:textColor="#FFF"
             android:layout_margin="4dp"
             android:text="LOGIN"
+            android:onClick="login_user"
             />
         <CheckBox
             android:id="@+id/chbxLogIn"
             android:textColor="#FFF"
-
             android:text="Remeber Me"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
