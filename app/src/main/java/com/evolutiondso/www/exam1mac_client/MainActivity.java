@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -36,6 +37,17 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivityTAG_";
+    public static final String kName = "kName";
+    public static final String kAge = "kAge";
+    public static final String kGrade = "kGrade";
+    private static final String chkBox = "chkBox";
+    private String name;
+    private String age;
+    private String grade;
+    private boolean checkstate;
+
+
+
     String line, lista;
     ArrayList<Student> lista_students;
 
@@ -71,32 +83,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void valida_Datos(){
+        //Aqui jalamos los valores de los EditText a variables String
         EditText userName = (EditText) findViewById(R.id.editTexttUserName);
         String usrName = userName.getText().toString();
         EditText pasCode = (EditText) findViewById(R.id.edittextPass);
         String pasw = pasCode.getText().toString();
+        CheckBox myCheck = (CheckBox) findViewById(R.id.chbxLogIn);
+        this.checkstate = myCheck.isEnabled();
 
-               //Hacemos un ciclo en el cual vamos a ver si esta este usuario
 
+
+            //Hacemos un ciclo en el cual vamos a ver si esta este usuario
              for (Student student:lista_students) {
                  if (student.getName().equals(usrName) && student.getPassword().equals(pasw)){
+                     name = student.getName();
+                     age = student.getAge();
+                     grade = String.valueOf(student.getGrade());
 
-                     Toast.makeText(MainActivity.this, "Welcome: " + usrName, Toast.LENGTH_SHORT).show();
 
+                     Toast.makeText(MainActivity.this, "Welcome: " +usrName, Toast.LENGTH_SHORT).show();
+
+                     //si es cierta la sentencia -> emepzamos intent para la segunda pantalla
                      Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                     //Pasamos valores a la segunda actividad con put extra -> intent.putExtra("parametro", "string");
+                     intent.putExtra(kName,this.name);
+                     intent.putExtra(kAge,this.age);
+                     intent.putExtra(kGrade,this.grade);
                      startActivity(intent);
-
-
-
                  } else {
                      Toast.makeText(MainActivity.this, "Access Denied!", Toast.LENGTH_SHORT).show();
                  }
              }
+
     }
 
 
+
     public void meteaLista(){
-        Toast.makeText(this, "Inicando actualización de lista.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Inicando actualizadción de lista.", Toast.LENGTH_SHORT).show();
         try {
             String myJson = run("http://www.mocky.io/v2/57a4dfb40f0000821dc9a3b8");
             Getstudent parser = new Getstudent();
@@ -119,10 +143,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 
-
-
-//Aqui es la tarea anterior
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+    //Aqui es la tarea anterior
 //    private void getJSON() {
 //        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 //        StrictMode.setThreadPolicy(policy);
